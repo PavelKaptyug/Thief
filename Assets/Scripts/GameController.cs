@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Eiko.YaSDK;
 
 public class GameController : MonoBehaviour
 {
@@ -73,8 +74,7 @@ public class GameController : MonoBehaviour
     public void Start()
     {
 
-        //Eiko.YaSDK.YandexSDK.instance.FOR_INTER();
-        //Eiko.YaSDK.YandexSDK.instance.FOR_REWIE();
+        Eiko.YaSDK.YandexSDK.instance.FOR_INTER();
         isWin = false;
         isLose = false;
         Time.timeScale = 1;
@@ -177,8 +177,8 @@ public class GameController : MonoBehaviour
         if (car != null)
             car.SetActive(false);
         Time.timeScale = 0;
-        if (PlayerPrefs.GetInt("levelsComplete") >= 10 && (PlayerPrefs.GetInt("levelsComplete")) % 5 == 0)
-            Eiko.YaSDK.YandexSDK.instance.FOR_REWIE();
+        /*if (PlayerPrefs.GetInt("levelsComplete") >= 10 && (PlayerPrefs.GetInt("levelsComplete")) % 5 == 0)
+            YandexSDK.instance.FOR_REWIE();*/
     }
     public void Lose()
     {
@@ -227,7 +227,8 @@ public class GameController : MonoBehaviour
         if (car != null)
             car.SetActive(false);
         Time.timeScale = 0;
-        if (PlayerPrefs.GetInt("levelsComplete")+1 >= 10 && (PlayerPrefs.GetInt("levelsComplete")+1)% 5 == 0)
-                Eiko.YaSDK.YandexSDK.instance.FOR_REWIE();
+        /*if (PlayerPrefs.GetInt("levelsComplete")+1 >= 10 && (PlayerPrefs.GetInt("levelsComplete")+1)% 5 == 0)
+                YandexSDK.instance.FOR_REWIE();*/
+        YandexSDK.instance.ShowInterstitial();
     }
 }

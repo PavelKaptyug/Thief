@@ -107,7 +107,8 @@
                 }
             })
                 .then(ysdk => {
-                    sdk = ysdk;
+					sdk=ysdk;
+					window.ysdk = sdk;
                     sdk.adv.showFullscreenAdv({ callbacks: {} });
                 });
 

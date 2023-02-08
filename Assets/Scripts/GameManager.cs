@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using Eiko.YaSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        YandexSDK.instance.hint=hint;
         if (musicMix != null && soundMix != null)
         {
             if (PlayerPrefs.GetString("music") == "off")
@@ -124,6 +126,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         */
         //записыванием в память о пройденном уровне и заспуске следующего уровня
+        YandexSDK.instance.ShowRewarded("2");
     }
     public void backToAllLevels()
     {
@@ -164,7 +167,7 @@ public class GameManager : MonoBehaviour
             hint.SetActive(true);
         }
         */
-        hint.SetActive(true);
+        YandexSDK.instance.ShowRewarded("1");
     }
 
     public void LoadLevel(int index)

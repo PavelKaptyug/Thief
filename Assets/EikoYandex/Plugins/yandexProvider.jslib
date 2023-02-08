@@ -34,8 +34,7 @@ mergeInto(LibraryManager.library, {
   },
 
   GetLang: function () {
-    var urlParams = window.location.search.replace( '?', '');
-    var returnStr = new URLSearchParams(urlParams).get("lang");
+    var returnStr =  window.ysdk.i18.lang;
     var bufferSize = lengthBytesUTF8(returnStr) + 1;
     var buffer = _malloc(bufferSize);
     stringToUTF8(returnStr, buffer, bufferSize);

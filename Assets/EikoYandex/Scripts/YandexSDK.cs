@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace Eiko.YaSDK
@@ -92,12 +93,13 @@ namespace Eiko.YaSDK
 
         public string Lang = "ru";
         private int chek;
-        public AudioSource music;
+        public AudioMixer music;
+        private bool reward;
 
         private void Awake() {
             if (instance == null) {
                 instance = this;
-                //DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(gameObject);
                 //Lang = GetLang();
 
             }
@@ -127,9 +129,10 @@ namespace Eiko.YaSDK
             {
                 StartCoroutine(WaitAddReload());
                 ShowFullscreenAd();
-                Time.timeScale = 0;
-
-                music.volume = 0;
+                //editorCanvas.OpenFullScreen();
+                //Time.timeScale = 0;
+                //Debug.Log("lol");
+                //music.volume = 0;
             }
             else
             {
@@ -141,17 +144,25 @@ namespace Eiko.YaSDK
         /// Call this to show rewarded ad
         /// </summary>
         /// <param name="placement"></param>
-        public void ShowRewarded(string placement) {
+        public void ShowRewarded(string placement)
+        {
+            //Time.timeScale = 0;
             int placemantId = ShowRewardedAd(placement);
-            //       int placemantId = 0;
+            reward = false;
+            //        int placemantId = 0;
             if (placement == "1")
+            {
                 chek = 1;
+            }
             if (placement == "2")
+            {
                 chek = 2;
+                Debug.Log("StartAdd");
+            }
             rewardedAdPlacementsAsInt.Enqueue(placemantId);
             rewardedAdsPlacements.Enqueue(placement);
-            Time.timeScale = 0;
-            music.volume = 0;
+            //Time.timeScale = 0;
+            music.SetFloat("Volume", -80);
 #if UNITY_EDITOR
             editorCanvas.OpenReward(placemantId);
 #endif
@@ -189,7 +200,7 @@ namespace Eiko.YaSDK
         public void OnInterstitialShown() {
             onInterstitialShown?.Invoke();
             Time.timeScale = 1;
-            music.volume = 1;
+           // music.volume = 1;
         }
 
         /// <summary>
@@ -199,7 +210,7 @@ namespace Eiko.YaSDK
         public void OnInterstitialError(string error) {
             onInterstitialFailed?.Invoke(error);
             Time.timeScale = 1;
-            music.volume = 1;
+            //music.volume = 1;
         }
 
         /// <summary>
@@ -218,13 +229,9 @@ namespace Eiko.YaSDK
             if (placement == rewardedAdPlacementsAsInt.Dequeue()) {
                 onRewardedAdReward?.Invoke(rewardedAdsPlacements.Dequeue());
             }
-            Time.timeScale = 1;
-            music.volume = 1;
             PlayerPrefs.SetInt("ShowAdd", PlayerPrefs.GetInt("ShowAdd") + 1);
-            if (chek == 1)
-                Hint();
-            if (chek == 2)
-                NextLevel();
+            reward = true;
+
         }
 
         /// <summary>
@@ -234,11 +241,15 @@ namespace Eiko.YaSDK
         public void OnRewardedClose(int placement) {
             onRewardedAdClosed?.Invoke(placement);
             Time.timeScale = 1;
-            music.volume = 1;
-            if (chek == 1)
-                Hint();
-            if (chek == 2)
-                NextLevel();
+            music.SetFloat("Volume", 0);
+            if (reward == true)
+            {
+                if (chek == 1)
+                    Hint();
+                if (chek == 2)
+                    NextLevel();
+            }
+            reward = false;
         }
 
         /// <summary>
@@ -250,7 +261,7 @@ namespace Eiko.YaSDK
             rewardedAdsPlacements.Clear();
             rewardedAdPlacementsAsInt.Clear();
             Time.timeScale = 1;
-            music.volume = 1;
+            music.SetFloat("Volume", 0);
         }
 
         /// <summary>
@@ -279,8 +290,10 @@ namespace Eiko.YaSDK
     
         public IEnumerator WaitAddReload()
         {
+            Debug.Log("reload");
             addsAvailable = false;
             yield return new WaitForSecondsRealtime(ReloadAdsSeconds);
+            Debug.Log("reloadoff");
             addsAvailable = true;
             addsOnReloaded?.Invoke();
         }
