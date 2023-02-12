@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Eiko.YaSDK;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,8 +9,7 @@ public class LevelNameScript : MonoBehaviour
 {
     public string test;
     [SerializeField] private Text textName;
-    public LangExtern script;
-    public string[] lang = { "eng", "ru", "pt", "es", "ar", "hi", "tr", "ja", "fr", "id", "de", "it", "zh" };
+    public string[] lang = { "en", "ru", "pt", "es", "ar", "hi", "tr", "ja", "fr", "id", "de", "it", "zh" };
     private string[] level_name = { "Level", "Уровень", "Nível", "Nivel", "", "लेवल", "Seviye", "レベル", "Niveau", "Level", "Level", "Livello", "等级" };
     private string[] all_level_name = { "Levels", "Уровни", "Níveis", "Niveles", "المستويات", "लेवल", "Seviyeler", "レベル", "Niveaux", "Level", "Level", "Livelli", "关卡" };
     public int[] font_size = { 200, 140, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
@@ -20,7 +20,7 @@ public class LevelNameScript : MonoBehaviour
     {
         var text = SceneManager.GetActiveScene().buildIndex;
         Font[] fonts = { eng_font, ru_font, pt_font, es_font, ar_font, hi_font, tr_font, ja_font, fr_font, id_font, de_font, it_font, zh_font };
-        test = LangExtern.GetLang();
+        test = YandexSDK.instance.Lang;
         Debug.Log(test);
         //test = "zh";
         FindI();

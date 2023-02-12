@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Eiko.YaSDK;
+using Eiko.YaSDK.Data;
 
 public class GameController : MonoBehaviour
 {
@@ -73,7 +74,10 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
-
+        var lvl = YandexPrefs.GetInt("levelsComplete");
+        if(lvl>0&&lvl<21)
+            AppMetricaWeb.Event("lvl"+lvl);
+        AppMetricaWeb.Event("roundStartUniversal");
         Eiko.YaSDK.YandexSDK.instance.FOR_INTER();
         isWin = false;
         isLose = false;
@@ -172,8 +176,8 @@ public class GameController : MonoBehaviour
                 playerObj.transform.localScale = new Vector3(playerObj.transform.localScale.x * -1, playerObj.transform.localScale.y, playerObj.transform.localScale.z);
             }
         }
-        if (PlayerPrefs.GetInt("levelsComplete") < SceneManager.GetActiveScene().buildIndex)
-            PlayerPrefs.SetInt("levelsComplete", PlayerPrefs.GetInt("levelsComplete") + 1);
+        if (YandexPrefs.GetInt("levelsComplete") < SceneManager.GetActiveScene().buildIndex)
+            YandexPrefs.SetInt("levelsComplete", YandexPrefs.GetInt("levelsComplete") + 1);
         if (car != null)
             car.SetActive(false);
         Time.timeScale = 0;
@@ -182,6 +186,7 @@ public class GameController : MonoBehaviour
     }
     public void Lose()
     {
+        AppMetricaWeb.Event("roundEnd");
         if (isLose != true && isWin != true)
         {
             //Eiko.YaSDK.YandexSDK.instance.FOR_INTER();

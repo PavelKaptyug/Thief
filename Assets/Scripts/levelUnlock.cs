@@ -1,3 +1,4 @@
+using Eiko.YaSDK.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class levelUnlock : MonoBehaviour
     public void Start()
     {
         //PlayerPrefs.SetInt("levelsComplete", 0);
-        if (int.Parse(gameObject.name) < PlayerPrefs.GetInt("levelsComplete") && gameObject.name != "1")
+        if (int.Parse(gameObject.name) < YandexPrefs.GetInt("levelsComplete") && gameObject.name != "1")
         {
             green.SetActive(true);
             gray.SetActive(false);
@@ -20,22 +21,22 @@ public class levelUnlock : MonoBehaviour
             green.SetActive(true);
             gray.SetActive(false);
         }
-        else if (int.Parse(gameObject.name) == PlayerPrefs.GetInt("levelsComplete") + 1)
+        else if (int.Parse(gameObject.name) == YandexPrefs.GetInt("levelsComplete") + 1)
         {
             green.SetActive(true);
             gray.SetActive(false);
         }
-        else if (int.Parse(gameObject.name) == PlayerPrefs.GetInt("levelsComplete"))
+        else if (int.Parse(gameObject.name) == YandexPrefs.GetInt("levelsComplete"))
         {
             green.SetActive(true);
             gray.SetActive(false);
         }
-        else if (int.Parse(gameObject.name) > PlayerPrefs.GetInt("levelsComplete") + 1)
+        else if (int.Parse(gameObject.name) > YandexPrefs.GetInt("levelsComplete") + 1)
         {
             gray.SetActive(true);
             green.SetActive(false);
         }
-        if (int.Parse(gameObject.name) == PlayerPrefs.GetInt("levelsComplete") + 1)
+        if (int.Parse(gameObject.name) == YandexPrefs.GetInt("levelsComplete") + 1)
         {
             greenTick.SetActive(false);
         }

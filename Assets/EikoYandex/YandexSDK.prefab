@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   editorCanvas: {fileID: 4575259461749462097, guid: 17c8d08fe6a89b74790117f756a66409, type: 3}
-  hint: {fileID: 0}
   addsAvailable: 0
   Lang: ru
-  music: {fileID: 24100000, guid: 5789a3e80ac138446962540da98b891d, type: 2}

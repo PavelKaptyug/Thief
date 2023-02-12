@@ -1,3 +1,4 @@
+using Eiko.YaSDK.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class nextBtn : MonoBehaviour
     public GameObject ad, noAd;
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex-1 == PlayerPrefs.GetInt("levelsComplete"))
+        if (SceneManager.GetActiveScene().buildIndex-1 == YandexPrefs.GetInt("levelsComplete"))
         {
             ad.SetActive(true);
             noAd.SetActive(false);

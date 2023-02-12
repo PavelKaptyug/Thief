@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Eiko.YaSDK;
+using Eiko.YaSDK.Data;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,9 +17,9 @@ public class GameManager : MonoBehaviour
     public GameObject canvas1, canvas2;
 
     private bool isSettingsActive = false;
-    
     void Start()
     {
+        
         YandexSDK.instance.hint=hint;
         if (musicMix != null && soundMix != null)
         {
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
     public void backToAllLevels()
     {
         buttonSound.Play();
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
     }
     public void backToPlay()
@@ -145,16 +148,20 @@ public class GameManager : MonoBehaviour
     }
     public void play()
     {
+        
         buttonSound.Play();
         canvas1.SetActive(false);
-        if (PlayerPrefs.GetInt("levelsComplete") + 1 != SceneManager.sceneCountInBuildSettings - 1)
-            SceneManager.LoadScene(PlayerPrefs.GetInt("levelsComplete") + 1);
+        AppMetricaWeb.Event("play");
+        if (YandexPrefs.GetInt("levelsComplete") + 1 != SceneManager.sceneCountInBuildSettings - 1)
+            SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete") + 1);
         else
-            SceneManager.LoadScene(PlayerPrefs.GetInt("levelsComplete"));
+            SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete"));
+       
     }
     public void AllLevels()
     {
         buttonSound.Play();
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
     }
     public void Hint()
@@ -172,6 +179,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int index)
     {
+        
         buttonSound.Play();
         canvas2.SetActive(false);
         SceneManager.LoadScene(index);
