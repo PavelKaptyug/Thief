@@ -31,10 +31,15 @@ public class block : MonoBehaviour
                 hand.position = new Vector3(hand.position.x, 0.8f, hand.position.z);
                 hand.rotation = Quaternion.Euler(0, 0, 0);
                 StartCoroutine(coll_update()); }
-            else if(targetPos.x> -1.677504f && level7 == true)
+            else if(level7 == true)
             {
                 script.cliced_ = false;
-                hand.position = new Vector3(-3.6f, hand.position.y, hand.position.z);
+                if(hand.position.x<-2f)
+                    hand.position = new Vector3(-3.6f, hand.position.y, hand.position.z);
+                else
+                {
+                    hand.position = new Vector3(1.2f, hand.position.y, hand.position.z);
+                }
                 hand.rotation = Quaternion.Euler(0, 0, 0);
                 StartCoroutine(coll_update());
             }
