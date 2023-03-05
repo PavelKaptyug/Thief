@@ -9,7 +9,7 @@ public class block : MonoBehaviour
     public Collider2D coll;
     public Camera cam;
     private Vector3 targetPos;
-    public bool level7;
+    public bool level7,level8,level97;
     void Start()
     {
         
@@ -26,7 +26,8 @@ public class block : MonoBehaviour
     {
         if (other.name == "hand")
         {
-            if (targetPos.y > 0.9f && level7==false){
+            Debug.Log("lol");
+            if (targetPos.y > 0.9f && level97==true){
                 script.cliced_ = false;
                 hand.position = new Vector3(hand.position.x, 0.8f, hand.position.z);
                 hand.rotation = Quaternion.Euler(0, 0, 0);
@@ -41,6 +42,12 @@ public class block : MonoBehaviour
                     hand.position = new Vector3(1.2f, hand.position.y, hand.position.z);
                 }
                 hand.rotation = Quaternion.Euler(0, 0, 0);
+                StartCoroutine(coll_update());
+            }
+            else if (level8 == true)
+            {
+                Debug.Log("lol");
+                script.cliced_ = false;
                 StartCoroutine(coll_update());
             }
         }

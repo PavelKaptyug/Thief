@@ -146,7 +146,7 @@ namespace Eiko.YaSDK
                 //editorCanvas.OpenFullScreen();
                 //Time.timeScale = 0;
                 //Debug.Log("lol");
-                //music.volume = 0;
+                music.SetFloat("Volume", -80);
             }
             else
             {
@@ -239,6 +239,7 @@ namespace Eiko.YaSDK
         public void OnInterstitialShown() {
             onInterstitialShown?.Invoke();
             Time.timeScale = 1;
+            music.SetFloat("Volume", 0);
         }
 
         /// <summary>
@@ -248,6 +249,7 @@ namespace Eiko.YaSDK
         public void OnInterstitialError(string error) {
             onInterstitialFailed?.Invoke(error);
             Time.timeScale = 1;
+            music.SetFloat("Volume", 0);
         }
 
         /// <summary>
