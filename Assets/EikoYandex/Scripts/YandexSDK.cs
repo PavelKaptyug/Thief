@@ -101,7 +101,7 @@ namespace Eiko.YaSDK
         private bool IsReviewed = false;
         public UserData user;
         public string adsPurchize="AddOff";
-        public string Lang = "ru";
+        public string Lang = "en";
         private int chek;
         public AudioMixer music;
         private bool reward;

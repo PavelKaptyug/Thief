@@ -150,13 +150,24 @@ public class GameManager : MonoBehaviour
     {
         
         buttonSound.Play();
-        canvas1.SetActive(false);
+        StartCoroutine(StartGame());
+        /*canvas1.SetActive(false);
+        AppMetricaWeb.Event("play");
+        if (YandexPrefs.GetInt("levelsComplete") + 1 != SceneManager.sceneCountInBuildSettings - 1)
+            SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete") + 1);
+        else
+            SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete"));*/
+       
+    }
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1.5f);
+        //canvas1.SetActive(false);
         AppMetricaWeb.Event("play");
         if (YandexPrefs.GetInt("levelsComplete") + 1 != SceneManager.sceneCountInBuildSettings - 1)
             SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete") + 1);
         else
             SceneManager.LoadScene(YandexPrefs.GetInt("levelsComplete"));
-       
     }
     public void AllLevels()
     {
